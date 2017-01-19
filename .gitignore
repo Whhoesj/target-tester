@@ -160,3 +160,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 # End of https://www.gitignore.io/api/windows,linux,android,gradle,intellij
+
+.idea/

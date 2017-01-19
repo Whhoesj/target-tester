@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.GPSActivity" />
+        <activity android:name=".activities.NFCActivity" />
+        <activity android:name=".activities.QRActivity"></activity>
     </application>
 
 </manifest>
