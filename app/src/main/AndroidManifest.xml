@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.habets.targettester">
 
+    <uses-permission android:name="android.permission.NFC" />
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,8 +22,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.GPSActivity" />
-        <activity android:name=".activities.NFCActivity" />
-        <activity android:name=".activities.QRActivity"></activity>
+        <activity android:name=".activities.NFCActivity">
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
+        <activity android:name=".activities.QRActivity" />
     </application>
 
 </manifest>
