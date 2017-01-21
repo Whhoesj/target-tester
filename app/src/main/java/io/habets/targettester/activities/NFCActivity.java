@@ -15,6 +15,7 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.habets.targettester.R;
+import io.habets.targettester.StopWatch;
 
 public class NFCActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class NFCActivity extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private IntentFilter[] filters;
     private String[][] techList;
+    private StopWatch stopWatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class NFCActivity extends AppCompatActivity {
         IntentFilter techFilter = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
         filters = new IntentFilter[]{techFilter};
         techList = new String[][]{new String[]{MifareClassic.class.getName()}};
+        stopWatch = new StopWatch();
     }
 
     @Override
@@ -44,6 +47,7 @@ public class NFCActivity extends AppCompatActivity {
         super.onResume();
         parseIntent(getIntent());
         nfcAdapter.enableForegroundDispatch(this, pendingIntent, filters, techList);
+        stopWatch.start();
     }
 
     @Override
@@ -63,7 +67,7 @@ public class NFCActivity extends AppCompatActivity {
         if (!NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) return;
 
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-        String text = "" +
+        String text = "Time: " + stopWatch.stopAndGetTime() +
                 "\nID  : " + Arrays.toString(tag.getId()) +
                 "\nTech: " + Arrays.toString(tag.getTechList());
         textView.setText(text);
